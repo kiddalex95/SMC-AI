@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GodMode Forex Journal</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white font-sans">
+
+  <!-- Header -->
+  <header class="p-6 flex justify-between items-center border-b border-gray-700">
+    <h1 class="text-2xl font-bold text-cyan-400">Mofenyi A Mosadi Forex Trade Journal</h1>
+    <button id="refreshJournal" class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 rounded transition">Refresh</button>
+  </header>
+
+  <!-- User Info -->
+  <section class="p-6 bg-gray-800 rounded m-6">
+    <h2 class="text-xl font-semibold mb-2">Welcome, <span id="userNameDisplay"></span></h2>
+    <p>Balance: <span id="userBalance">0</span> USD | Broker: <span id="userBroker">N/A</span></p>
+  </section>
+
+  <!-- Trade Journal Table -->
+  <section class="p-6 m-6 bg-gray-800 rounded shadow-lg overflow-x-auto">
+    <table class="min-w-full table-auto text-left">
+      <thead>
+        <tr class="border-b border-gray-700">
+          <th class="px-4 py-2">Pair</th>
+          <th class="px-4 py-2">Order Type</th>
+          <th class="px-4 py-2">Entry Price</th>
+          <th class="px-4 py-2">SL</th>
+          <th class="px-4 py-2">TP</th>
+          <th class="px-4 py-2">RR</th>
+          <th class="px-4 py-2">Status</th>
+          <th class="px-4 py-2">P/L</th>
+        </tr>
+      </thead>
+      <tbody id="tradeJournalBody">
+        <!-- AI-populated trades will appear here -->
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Trade Charts Placeholder -->
+  <section class="p-6 m-6 bg-gray-800 rounded shadow-lg">
+    <h2 class="text-xl font-semibold mb-4">Trade Performance Charts</h2>
+    <div id="journalCharts" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Placeholder: AI-generated charts (profit, risk, winrate) -->
+      <canvas id="profitChart" class="bg-gray-900 rounded p-2"></canvas>
+      <canvas id="winrateChart" class="bg-gray-900 rounded p-2"></canvas>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="p-6 text-center text-gray-400 border-t border-gray-700">
+    © 2026 GodMode Forex | AI Trade Journal
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/utils.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/alerts.js"></script>
+  <script>
+    // Load user info from localStorage or ask at startup
+    document.getElementById('userNameDisplay').innerText = localStorage.getItem('userName') || 'Trader';
+    document.getElementById('userBalance').innerText = localStorage.getItem('userBalance') || '1000';
+    document.getElementById('userBroker').innerText = localStorage.getItem('userBroker') || 'Demo';
+
+    // Refresh journal button
+    document.getElementById('refreshJournal').addEventListener('click', () => {
+      window.dispatchEvent(new Event('updateJournal'));
+    });
+
+    // Event listener in main.js handles fetching AI signals and populating the table
+  </script>
+</body>
+</html>

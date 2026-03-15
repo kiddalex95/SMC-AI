@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forex News & Events</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans p-4 flex flex-col items-center min-h-screen">
+
+  <h1 class="text-3xl font-bold mb-4">Forex News & Events</h1>
+
+  <div id="newsSection" class="w-full max-w-4xl grid grid-cols-1 gap-4">
+    <!-- News items populated by JS -->
+  </div>
+
+  <footer class="text-gray-500 mt-auto">© 2026 Mofenyi A Mosadi Forex | AI News</footer>
+
+  <script type="module">
+    import { fetchNews, renderNews } from "./lib/finnhub.js";
+
+    async function loadNews() {
+      const newsData = await fetchNews("forex", 10); // fetch last 10 news
+      const newsContainer = document.getElementById("newsSection");
+      renderNews(newsData, newsContainer);
+    }
+
+    loadNews();
+    setInterval(loadNews, 60000); // refresh news every minute
+  </script>
+</body>
+</html>

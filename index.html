@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mofenyi A Mosadi Forex AI Dashboard</title>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex flex-col items-center p-4">
+
+  <!-- Navbar -->
+  <nav class="w-full max-w-4xl flex justify-between mb-4">
+    <a href="index.html" class="text-blue-400 font-bold">Dashboard</a>
+    <a href="signals.html" class="text-blue-400">Signals</a>
+    <a href="journal.html" class="text-blue-400">Journal</a>
+    <a href="news.html" class="text-blue-400">News</a>
+  </nav>
+
+  <h1 class="text-4xl font-bold mb-2">Forex AI Dashboard</h1>
+  <p class="mb-4">Welcome, <span id="userName">Trader</span></p>
+
+  <div class="w-full max-w-4xl bg-gray-800 rounded p-4 mb-4 shadow-lg flex justify-between">
+    <button id="refreshBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded transition-all">Refresh Data</button>
+    <span id="lastUpdated" class="text-gray-400 text-sm">--</span>
+  </div>
+
+  <div class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+    <div class="bg-gray-800 p-4 rounded shadow-lg">
+      <h2 class="text-xl font-semibold mb-2">Market Analysis</h2>
+      <div id="marketAnalysis" class="text-gray-200">
+        AI signals, entry targets, SL/TP, risk/reward, and sentiment analysis will appear here.
+      </div>
+    </div>
+
+    <div class="bg-gray-800 p-4 rounded shadow-lg">
+      <h2 class="text-xl font-semibold mb-2">Speedometer (Market Strength)</h2>
+      <div class="w-full bg-gray-700 rounded h-6 mb-2">
+        <div id="speedometer" class="bg-green-500 h-6 rounded w-0"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-full max-w-4xl bg-gray-800 p-4 rounded shadow-lg mb-4">
+    <h2 class="text-xl font-semibold mb-2">Open Orders</h2>
+    <div id="openOrders" class="text-gray-200">No open orders yet. Select a pair to start trading.</div>
+  </div>
+
+  <div class="w-full max-w-4xl bg-gray-800 p-4 rounded shadow-lg mb-4 flex flex-col md:flex-row gap-4 items-center">
+    <label for="pairSelect" class="mr-2">Select Pair:</label>
+    <select id="pairSelect" class="bg-gray-700 p-2 rounded text-gray-100 flex-1">
+      <option value="EUR/USD">EUR/USD</option>
+      <option value="GBP/USD">GBP/USD</option>
+      <option value="USD/JPY">USD/JPY</option>
+      <option value="AUD/USD">AUD/USD</option>
+      <option value="USD/CAD">USD/CAD</option>
+    </select>
+
+    <label for="ordersInput" class="mr-2">Number of Orders:</label>
+    <input id="ordersInput" type="number" value="1" min="1" class="bg-gray-700 p-2 rounded text-gray-100 w-20">
+  </div>
+
+  <div id="newsSection" class="w-full max-w-4xl bg-gray-800 p-4 rounded shadow-lg mb-4">
+    <h2 class="text-xl font-semibold mb-2">Latest Forex News</h2>
+    <div class="text-gray-200">News from Finnhub will appear here.</div>
+  </div>
+
+  <footer class="text-gray-500 mt-auto">© 2026 Mofenyi A Mosadi Forex | AI Powered Trading Dashboard</footer>
+
+  <!-- Core JS -->
+  <script src="js/utils.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/alerts.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

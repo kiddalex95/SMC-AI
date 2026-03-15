@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Forex AI Signals</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans p-4 flex flex-col items-center min-h-screen">
+
+  <h1 class="text-3xl font-bold mb-4">Live AI Signals</h1>
+
+  <div class="w-full max-w-4xl bg-gray-800 p-4 rounded shadow-lg mb-4">
+    <label for="signalPairSelect">Select Pair:</label>
+    <select id="signalPairSelect" class="bg-gray-700 p-2 rounded text-gray-100 w-full mt-2">
+      <!-- Options populated by JS -->
+    </select>
+  </div>
+
+  <div id="signalsContainer" class="w-full max-w-4xl grid grid-cols-1 gap-4">
+    <!-- AI signals will appear here -->
+  </div>
+
+  <footer class="text-gray-500 mt-auto">© 2026 GodMode Forex | AI Signals</footer>
+
+  <script type="module">
+    import { fetchRealTimePrice, fetchCandleData, calculateTrend } from "./lib/twelvedata.js";
+    import { showAlert } from "./js/alerts.js";
+
+    const signalPairSelect = document.getElementById("signalPairSelect");
+    const signalsContainer = document.getElementById("signalsContainer");
+    const pairs = ["EUR/USD", "GBP/USD", "USD/JPY", "AUD/USD", "USD/CAD"];
+
+    // Populate pairs
+    pairs.forEach(pair => {
+      const opt = document.createElement("option");
+      opt.value = pair;
+      opt.textContent = pair;
+      signalPairSelect.appendChild(opt);
+    });
+
+    let currentSignalPair = pairs[0];
+    signalPairSelect.addEventListener("change", () => {
+      currentSignalPair = signalPairSelect.value;
+      updateSignals();
+    });
+
+    async function updateSignals() {
+      const price = await fetchRealTimePrice(currentSignalPair);
+      const candles = await fetchCandleData(currentSignalPair, "15min", 50);
+      const trend = calculateTrend(candles);
+
+      signalsContainer.innerHTML = `
+        <div class="bg-gray-800 p-4 rounded shadow-lg">
+          <p>Pair: ${currentSignalPair}</p>
+          <p>Live Price: ${price ? price.toFixed(5) : "Loading..."}</p>
+          <p>Trend: ${trend}</p>
+          <p>Suggested Trades:</p>
+          <ul class="ml-4">
+            <li>Scalp Entry: ${price ? (price*0.998).toFixed(5) : "-"}</li>
+            <li>Swing Entry: ${price ? (price*0.995).toFixed(5) : "-"}</li>
+            <li>Position Trade Entry: ${price ? (price*0.99).toFixed(5) : "-"}</li>
+          </ul>
+        </div>
+      `;
+      showAlert(`Signals updated for ${currentSignalPair}`, "info");
+    }
+
+    updateSignals();
+    setInterval(updateSignals, 30000); // auto-update every 30s
+  </script>
+</body>
+</html>
