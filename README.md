@@ -1,4 +1,4 @@
-# GodMode Forex Dashboard
+# Mofenyi A Mosadi Forex Dashboard
 
 **Live AI-powered Forex trading dashboard** built with HTML, Tailwind CSS, and JavaScript.  
 Fully integrated with **TwelveData API** (live prices & candles) and **Finnhub API** (live news/events).  
